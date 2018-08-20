@@ -21,15 +21,24 @@ def get_line(file):
     if line == "":
         return None
     else:
-        return line.strip()
+        return line.strip().encode('ascii', 'ignore').decode('ascii')
 
 def is_speaker(line):
     if re.match('ACT', line):
         return False
-    return re.fullmatch(r'[A-Z]+', line)
+    return re.fullmatch(r'[A-Z]+\.?', line)
 
 def is_stage_direction(line):
-    return re.match(r'[A-Z]{3,}', line)
+    if re.match(r'[A-Z]{3,}', line)
+        return True
+    elif re.match(r'Pause\.', line)
+        return True
+    elif re.match(r'Silence\.', line)
+        return True
+    elif re.match(r'Blackout\.', line)
+        return True
+    else
+        return False
 
 def next_line(file):
     global prev_speaker
