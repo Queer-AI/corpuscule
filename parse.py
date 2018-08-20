@@ -28,16 +28,19 @@ def is_speaker(line):
         return False
     return re.fullmatch(r'[A-Z]+\.?', line)
 
+def remove_parentheticals(line):
+    return re.sub(r'([\(\{\[].*?[)\}\]])', '', line)
+
 def is_stage_direction(line):
-    if re.match(r'[A-Z]{3,}', line)
+    if re.match(r'[A-Z]{3,}', line):
         return True
-    elif re.match(r'Pause\.', line)
+    elif re.match(r'Pause\.', line):
         return True
-    elif re.match(r'Silence\.', line)
+    elif re.match(r'Silence\.', line):
         return True
-    elif re.match(r'Blackout\.', line)
+    elif re.match(r'Blackout\.', line):
         return True
-    else
+    else:
         return False
 
 def next_line(file):
@@ -61,7 +64,7 @@ def next_line(file):
         current_speaker = line
         if not is_stage_direction(prev_line):
             corpus += prev_line + "\n"
-    prev_line = line
+    prev_line = remove_parentheticals(line).strip()
     return True
 
 def parse(file):
