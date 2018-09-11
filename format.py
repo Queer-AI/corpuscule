@@ -19,12 +19,12 @@ def readline(file):
         return True
     else:
         split = line.split(':')
-        name = re.match(r'[A-Z ]+', split[0])
+        name = re.match(r'[A-Za-z ]+', split[0])
         if len(split) > 1 and name:
-            play += name.group(0) + '\n'
+            play += name.group(0).upper() + '\n'
             play += split[1].strip() + '\n'
         return True
- 
+
 
 with open(sys.argv[1]) as f:
     count = 0
